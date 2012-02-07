@@ -1,17 +1,12 @@
 @CHARSET "ISO-8859-1";
 
-
-#body
+body
 {
-	width: ;
+	width: 1000px;
+	height: 100%;
 }
 
-#map
-{
-	width: 400px; 
-}
-
-#css-test
+#css-test 
 {
 	border: 1px solid black;
 	width: 100px;
