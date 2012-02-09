@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 <%@ page session="false" %>
 
 
@@ -69,18 +70,7 @@
 	
 	<body onload="initialize()">
 	
-		<div id="header">
-
-			<h1>
-				Chronomo 
-			</h1>
-			
-			<div id="header-navigation">
-				<div id="signup">Sign Up</div>
-				<div id="sign-in">Sign In</div>
-			</div><!-- header-navigation -->
-			
-		</div><!-- header -->
+		<tags:header/>
 		
 
 	<P>  The time on the server is ${serverTime}. </P>

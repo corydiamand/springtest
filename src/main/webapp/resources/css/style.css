@@ -18,24 +18,33 @@ body
 #header-navigation
 {
 	border: 1px solid black;
-	margin-left: 200px;
+	margin-left:auto;
+	margin-right:auto;
     width: 700px;
     min-height: 20px;
 }
 
 #signup
 {
+	margin-left: 12px;
 	float: left;
+}
+
+#timer-nav
+{
+	float: left;
+	margin-left: ;
 }
 
 #sign-in
 {
 	margin-left: 12px;
-	float: right;
+	float: left;
 }
 
 
-/* main group */
+
+/* main group on home page */
 #main
 {
 	
@@ -55,4 +64,59 @@ body
 	height: 700px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+/* Timer Page */
+
+#timer-container
+{
+	border: 1px solid black;
+	width: 700px;
+	height: 800px;
+	margin: 10px auto 0 auto;
+}
+
+#start-stop-button
+{
+	border: 1px solid black;
+	width: 700px;
+	height: 200px;
+}
+
+#timer-data
+{
+	border: 1px solid black;
+	width: 700px;
+	height: 400px;
+}
+
+#location
+{
+	border: 1px solid black;
+	height: 20px;
+}
+
+#start-time
+{
+	border: 1px solid black;
+	height: 20px;
+}
+
+#stop-time
+{
+	border: 1px solid black;
+	height: 20px;
+}
+
+#total-time
+{
+	border: 1px solid black;
+	height: 20px;
+}
+
+#timer-submit-button
+{
+	border: 1px solid black;
+	width: 700px;
+	height: 200px;
 }
