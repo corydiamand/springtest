@@ -13,7 +13,7 @@
 <body>
 <tags:header/>
 <script src=/springtest/src/main/webapp/resources/jquery.js></script>
-<script>
+<script type="text/javascript">
 if (navigator.geolocation)
 	{
 	navigator.geolocation.getCurrentPosition
@@ -27,9 +27,9 @@ if (navigator.geolocation)
 	);
 	
 	}
-	
+</script>	
 
-</script>
+
 Hello Timer
 <div id="timer-container">
 <div id="start-stop-button">Start</div><!-- start-stop-button -->
