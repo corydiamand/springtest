@@ -9,37 +9,102 @@
 <title>Timer</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css" type ="text/css"/>
 
-</head>
-<body>
-<tags:header/>
-<script src=/springtest/src/main/webapp/resources/jquery.js></script>
+<!-- javascript here -->
+
+<script src="<%=request.getContextPath()%>/resources/jquery.js"></script>
 <script type="text/javascript">
-if (navigator.geolocation)
+
+$(document).ready(function()
+{
+	if (navigator.geolocation)
 	{
-	navigator.geolocation.getCurrentPosition
-	(
+		navigator.geolocation.getCurrentPosition
+		(
+				
 			function	(position)
 			{
-				alert(position.coords.latitude);
-	
+				//put geolocation coordinates into location input in form
+				$("input[name=location]").val(position.coords.latitude + ' ' + position.coords.longitude);
+			
+			},
+
+			{
+				enableHighAccuracy:true
 			}
 			
+		);
+	}
+	
+	//props to chris hope at www.electrictoolbox.com for this script to convert javascript's date()	into a database friendly format
+	function pad(number, length) 
+	{
+	   
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+   
+    return str;
+	}
+
+	
+	function dateToDatabase(dt)
+	{
+		return dt.getFullYear() + '-' + pad(dt.getMonth()+1, 2) + '-' + pad(dt.getDate(), 2) + ' ' + pad(dt.getHours(), 2) + ':' + pad(dt.getMinutes(), 2) + ':' + pad(dt.getSeconds(), 2);
+	}
+	
+	
+	var timeAtStart;
+	var timeAtStop;
+	$("div#start-stop-button").toggle
+	(
+		function()
+		{
+			timeAtStart=new Date();
+			$("input[name=start-time]").val(dateToDatabase(timeAtStart));
+			$("div#start-stop-button p").html("Stop");	
+		},	
+	
+		function()
+		{
+			timeAtStop=new Date();
+			total = (timeAtStop-timeAtStart);
+			$("input[name=stop-time]").val(dateToDatabase(timeAtStop));
+			$("input[name=total-time]").val(total);
+			$("div#start-stop-button p").html("Reset</br>try again?");	
+		},
+		
+		function()
+		{
+			$("div#start-stop-button p").html("Start");
+		}
 	);
 	
-	}
+
+	
+});
 </script>	
 
+<script type=text/javascript>
 
-Hello Timer
+</script>
+
+</head>
+<body>
+ <tags:header/> 
+
+<p>Hello Timer</p>
 <div id="timer-container">
-<div id="start-stop-button">Start</div><!-- start-stop-button -->
+<div id="start-stop-button"><button><p>Start</p></button></div><!-- start-stop-button -->
+<form id="timer-form">
 <div id="timer-data">
-<div id="location">Location: </div>
-<div id="start-time">Start Time</div>
-<div id="stop-time">Stop Time</div>
-<div id="total-time">Total Time Spent</div>
+<div id="location">Location: <input type="text" name="location" value="calculating your location!" /></div><!-- location -->
+<div id="start-time">Start Time: <input type="text" name="start-time" /></div><!-- start-time -->
+<div id="stop-time">Stop Time: <input type="text" name="stop-time" /></div><!-- stop-time -->
+<div id="total-time">Total Time Spent (in milliseconds): <input type="text" name="total-time" /></div><!-- total-time -->
 </div><!-- timer-data -->
-<div id="timer-submit-button">Submit Button</div>
+</form><!-- timer-form -->
+<div id="timer-submit-button"><button><p>Submit<p></button></div>
 </div><!-- timer-container -->
 
 </body>

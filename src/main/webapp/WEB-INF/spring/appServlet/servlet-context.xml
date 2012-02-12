@@ -71,5 +71,8 @@
 		classes. The SpringJdbcIntro class uses @Transactional annotations. -->
 	<!-- <tx:annotation-driven /> -->
 	
+	<!-- helps compile on tomcat -->
+	<default-servlet-handler/>
+	
 </beans:beans>
 

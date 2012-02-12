@@ -70,7 +70,7 @@
 	
 	<body onload="initialize()">
 	
-		<tags:header/>
+	 	<tags:header/> 
 		
 
 	<P>  The time on the server is ${serverTime}. </P>
