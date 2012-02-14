@@ -15,24 +15,27 @@
 <script type="text/javascript">
 
 $(document).ready(function()
-{
+{		
+	function getPos(position)
+	{
+		//put geolocation coordinates into location input in form
+		$("input[name=location]").val(position.coords.latitude + ' ' + position.coords.longitude);
+		
+	}
+			
+			
 	if (navigator.geolocation)
 	{
-		navigator.geolocation.getCurrentPosition
-		(
+	 	navigator.geolocation.getCurrentPosition(
 				
-			function	(position)
-			{
-				//put geolocation coordinates into location input in form
-				$("input[name=location]").val(position.coords.latitude + ' ' + position.coords.longitude);
+	 		getPos,undefined,
 			
-			},
-
 			{
-				enableHighAccuracy:true
+				enableHighAccuracy: true
 			}
 			
 		);
+	getPos;
 	}
 	
 	//props to chris hope at www.electrictoolbox.com for this script to convert javascript's date()	into a database friendly format
@@ -71,7 +74,7 @@ $(document).ready(function()
 			total = (timeAtStop-timeAtStart);
 			$("input[name=stop-time]").val(dateToDatabase(timeAtStop));
 			$("input[name=total-time]").val(total);
-			$("div#start-stop-button p").html("Reset</br>try again?");	
+			$("div#start-stop-button p").html("Reset");	
 		},
 		
 		function()
