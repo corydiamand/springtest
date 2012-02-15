@@ -156,13 +156,13 @@ body
 	height: 200px;
 }
 
-#timer-submit-button button
+#timer-submit-button input
 {
 	width: 100%;
 	height: 100%;
 }
 
-#timer-submit-button p
+input.timerSubmit
 {
 	font-size: 55px;
 }

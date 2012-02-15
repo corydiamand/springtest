@@ -20,6 +20,11 @@ public class TimerController {
 	{
 	logger.info("Welcome to the Timer Page! ");
 	
+	
+	
+	
+	
+
 	return "timer";
 	}
 }

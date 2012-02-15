@@ -107,7 +107,7 @@ $(document).ready(function()
 <div id="total-time">Total Time Spent (in milliseconds): <input type="text" name="total-time" /></div><!-- total-time -->
 </div><!-- timer-data -->
 </form><!-- timer-form -->
-<div id="timer-submit-button"><button><p>Submit<p></button></div>
+<div id="timer-submit-button"><input class=timerSubmit type="submit" value= "Submit"/></div>
 </div><!-- timer-container -->
 
 </body>
