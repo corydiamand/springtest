@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,7 +22,6 @@ $(document).ready(function()
 	{
 		//put geolocation coordinates into location input in form
 		$("input[name=location]").val(position.coords.latitude + ' ' + position.coords.longitude);
-		
 	}
 			
 			
@@ -35,7 +36,7 @@ $(document).ready(function()
 			}
 			
 		);
-	getPos;
+	
 	}
 	
 	//props to chris hope at www.electrictoolbox.com for this script to convert javascript's date()	into a database friendly format
@@ -100,14 +101,16 @@ $(document).ready(function()
 <div id="timer-container">
 <div id="start-stop-button"><button><p>Start</p></button></div><!-- start-stop-button -->
 <form id="timer-form">
+<form:form method="Post" commandName="MARKER">
 <div id="timer-data">
 <div id="location">Location: <input type="text" name="location" value="calculating your location!" /></div><!-- location -->
 <div id="start-time">Start Time: <input type="text" name="start-time" /></div><!-- start-time -->
 <div id="stop-time">Stop Time: <input type="text" name="stop-time" /></div><!-- stop-time -->
 <div id="total-time">Total Time Spent (in milliseconds): <input type="text" name="total-time" /></div><!-- total-time -->
 </div><!-- timer-data -->
-</form><!-- timer-form -->
 <div id="timer-submit-button"><input class=timerSubmit type="submit" value= "Submit"/></div>
+</form:form>
+</form><!-- timer-form -->
 </div><!-- timer-container -->
 
 </body>
