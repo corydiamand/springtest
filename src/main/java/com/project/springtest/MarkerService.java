@@ -51,6 +51,14 @@ public class MarkerService
 			return jdbcTemplate.query(sql, mapper);
 	}
 
+	public static void addMarker(Marker marker) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+
 }
 
 

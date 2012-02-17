@@ -101,7 +101,7 @@ $(document).ready(function()
 <div id="timer-container">
 <div id="start-stop-button"><button><p>Start</p></button></div><!-- start-stop-button -->
 <form id="timer-form">
-<form:form method="Post" commandName="MARKER">
+<form:form method="Post">
 <div id="timer-data">
 <div id="location">Location: <input type="text" name="location" value="calculating your location!" /></div><!-- location -->
 <div id="start-time">Start Time: <input type="text" name="start-time" /></div><!-- start-time -->
