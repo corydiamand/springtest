@@ -116,6 +116,29 @@ body
 	border: 1px solid black;
 	width: 200px;
 }
+
+#latitude
+{
+	border: 1px solid black;
+	height: 40px;
+}
+
+#latitude input
+{
+	border: 1px solid black;
+}
+
+#longitude
+{
+	border: 1px solid black;
+	height: 40px;
+}
+
+#longitude input
+{
+	border: 1px solid black;
+}
+
 #start-time
 {
 	border: 1px solid black;

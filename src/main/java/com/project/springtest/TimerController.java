@@ -22,8 +22,8 @@ public class TimerController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TimerController.class);
 
-	@Resource(name="markerService")
-	private MarkerService markerService;
+//	@Resource(name="markerService")
+//	private MarkerService markerService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String timerForm(ModelMap model)
@@ -46,10 +46,12 @@ public class TimerController {
 	String addMarker(@ModelAttribute("marker") Marker marker)
 	{
 		MarkerService.addMarker(marker);
+		logger.info("marker added!");
 		return "timersuccess";
+		
 	}
-//	@Autowired
-//	MarkerService markerService;
+	@Autowired
+	MarkerService markerService;
 
 
 }

@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -20,7 +21,7 @@ import com.project.springtest.Marker;
 public class MarkerService 
 {
 
-	private JdbcTemplate jdbcTemplate;
+	private static JdbcTemplate jdbcTemplate;
 	
 	@Resource(name="dataSource")
 	public void setDataSource(DataSource dataSource)
@@ -45,15 +46,24 @@ public class MarkerService
 				marker.setLon(rs.getFloat("lon"));
 					return marker;
 			}
-		};
+		}; 
 		
 			//Retrieve All
 			return jdbcTemplate.query(sql, mapper);
 	}
+	
+	
+	//creates an interface for the timer form data
+	public interface dataAccess{
+		void addMarker(String location, float lat, float lon, String startTime, String stopTime, int totalTime);
+	}
+	
+	//updates the database with information from the timer
 
-	public static void addMarker(Marker marker) {
-		// TODO Auto-generated method stub
-		
+	public static void addMarker(Marker marker) 
+	{
+		jdbcTemplate.update("INSERT INTO locationdata (location,lat,lon,starttime,stoptime,totaltime) VALUES (?,?,?,?,?,?)",
+		new Object[] {marker.getLocation(),marker.getLat(),marker.getLon(),marker.getStartTime(),marker.getStopTime(),marker.getTotalTime()});
 	}
 	
 	

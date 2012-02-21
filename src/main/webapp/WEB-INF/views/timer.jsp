@@ -14,17 +14,51 @@
 <!-- javascript here -->
 
 <script src="<%=request.getContextPath()%>/resources/jquery.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
 <script type="text/javascript">
 
 $(document).ready(function()
 {		
+	//declaring coordinate variables so I can grab them later
+	
+	
 	function getPos(position)
 	{
-		//put geolocation coordinates into location input in form
-		$("input[name=location]").val(position.coords.latitude + ' ' + position.coords.longitude);
+		//populate location field in form with potential locations. Populate lat and lon fields with ...lat and lon..
+		currentLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+	 var request = {
+			    location: currentLocation,
+			    radius: '10'
+			  };
+	
+	
+	locationDiv = document.getElementById("places-div");
+	service = new google.maps.places.PlacesService(locationDiv);
+	service.search(request, callback);
+	
+	function callback(results, status)  
+	{
+		  if (status == google.maps.places.PlacesServiceStatus.OK) 
+		  {
+			      
+				alert(results.join('\n'));
+				alert(JSON.stringify(results));
+				var i;
+				for (i in results)
+					{
+					$("select[name=location]").val(results[i].name);
+					}
+			   
+		  }
+	}
+		$("input[name=location]");
+		$("input[name=lat]").val(position.coords.latitude);
+		$("input[name=lon]").val(position.coords.longitude);
 	}
 			
 			
+	
+	//gets gps data from the browser or the cell phone. Uses the getPos function. Enable high accuracy allows certain mobile devices to give more exact coordinates
 	if (navigator.geolocation)
 	{
 	 	navigator.geolocation.getCurrentPosition(
@@ -39,7 +73,7 @@ $(document).ready(function()
 	
 	}
 	
-	//props to chris hope at www.electrictoolbox.com for this script to convert javascript's date()	into a database friendly format
+	//Credit to chris hope at www.electrictoolbox.com for this script to convert javascript's date() into a database friendly format
 	function pad(number, length) 
 	{
 	   
@@ -58,26 +92,33 @@ $(document).ready(function()
 	}
 	
 	
+
+	
+	
+	//declaring global variables for following functions
 	var timeAtStart;
 	var timeAtStop;
+	
+	//jquery for when the start button is pressed multiple times (toggle), the first function controls what happens on the first click, the second function controls the second click, etc, etc.
 	$("div#start-stop-button").toggle
 	(
+	    //first click 
 		function()
 		{
 			timeAtStart=new Date();
-			$("input[name=start-time]").val(dateToDatabase(timeAtStart));
+			$("input[name=startTime]").val(dateToDatabase(timeAtStart));
 			$("div#start-stop-button p").html("Stop");	
 		},	
-	
+		//second click
 		function()
 		{
 			timeAtStop=new Date();
-			total = (timeAtStop-timeAtStart);
-			$("input[name=stop-time]").val(dateToDatabase(timeAtStop));
-			$("input[name=total-time]").val(total);
+			total = (timeAtStop-timeAtStart); 
+			$("input[name=stopTime]").val(dateToDatabase(timeAtStop));
+			$("input[name=totalTime]").val(total);
 			$("div#start-stop-button p").html("Reset");	
 		},
-		
+		//third click
 		function()
 		{
 			$("div#start-stop-button p").html("Start");
@@ -96,21 +137,41 @@ $(document).ready(function()
 </head>
 <body>
  <tags:header/> 
-
-<p>Hello Timer</p>
+<div id="places-div"></div>
 <div id="timer-container">
 <div id="start-stop-button"><button><p>Start</p></button></div><!-- start-stop-button -->
-<form id="timer-form">
-<form:form method="Post">
+<!--<form id="timer-form"> -->
+<form:form method="Post" modelAttribute="marker">
 <div id="timer-data">
-<div id="location">Location: <input type="text" name="location" value="calculating your location!" /></div><!-- location -->
-<div id="start-time">Start Time: <input type="text" name="start-time" /></div><!-- start-time -->
-<div id="stop-time">Stop Time: <input type="text" name="stop-time" /></div><!-- stop-time -->
-<div id="total-time">Total Time Spent (in milliseconds): <input type="text" name="total-time" /></div><!-- total-time -->
+<div id="location">Location:
+<select name=location>
+<option value="volvo">Volvo</option>
+<option value="volvo">Volvo</option>
+<option value="volvo">Volvo</option>
+<option value="volvo">Volvo</option>
+</select>
+</div><!-- location -->
+
+<div id="latitude"
+><form:label path="lat"> Latitude: </form:label><form:input path="lat" />
+</div><!-- latitude -->
+
+<div id="longitude">
+<form:label path="lon"> Longitude: </form:label><form:input path="lon" />
+</div><!-- longitude -->
+
+<div id="start-time"> 
+<form:label path="startTime"> Start Time: </form:label><form:input path="startTime" />
+</div><!-- start-time -->
+
+<div id="stop-time">
+<form:label path="stopTime"> Stop Time: </form:label><form:input path="stopTime" /></div>
+<!-- stop-time -->
+<div id="total-time"><form:label path="totalTime">Total Time Spent (in milliseconds): </form:label><form:input path="totalTime" /></div><!-- total-time -->
 </div><!-- timer-data -->
 <div id="timer-submit-button"><input class=timerSubmit type="submit" value= "Submit"/></div>
 </form:form>
-</form><!-- timer-form -->
+<!-- </form><!-- timer-form -->
 </div><!-- timer-container -->
 
 </body>

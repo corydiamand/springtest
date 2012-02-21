@@ -1,12 +1,15 @@
 package com.project.springtest;
 
+import java.util.Date;
+
 public class Marker {
 	
 	private int id;
+	private String location;
 	private float lat;
 	private float lon;
-	private int startTime;
-	private int stopTime;
+	private String startTime;
+	private String stopTime;
 	private int totalTime;
 	
 	public int getId()
@@ -17,6 +20,14 @@ public class Marker {
 	public void setId(Integer id)
 	{
 		this.id=id;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 	public float getLat()
@@ -39,19 +50,19 @@ public class Marker {
 		this.lon=lon;
 	}
 
-	public int getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(int startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
-	public int getStopTime() {
+	public String getStopTime() {
 		return stopTime;
 	}
 
-	public void setStopTime(int stopTime) {
+	public void setStopTime(String stopTime) {
 		this.stopTime = stopTime;
 	}
 

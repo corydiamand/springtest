@@ -1,0 +1,14 @@
+//just in case you need to build the table this runs on.
+
+
+CREATE TABLE `locationdata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `location` text,
+  `lat` decimal(30,15) DEFAULT NULL,
+  `lon` decimal(30,15) DEFAULT NULL,
+  `starttime` datetime DEFAULT NULL,
+  `stoptime` datetime DEFAULT NULL,
+  `totaltime` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
