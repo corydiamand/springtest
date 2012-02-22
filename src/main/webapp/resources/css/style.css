@@ -108,7 +108,7 @@ body
 #location
 {
 	border: 1px solid black;
-	height: 120px;
+	min-height: 120px;
 }
 
 #location input

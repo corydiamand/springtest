@@ -19,51 +19,66 @@
 
 $(document).ready(function()
 {		
-	//declaring coordinate variables so I can grab them later
 	
+	//we use function getPos later on when we grab the gps coordinates
 	
 	function getPos(position)
 	{
-		//populate location field in form with potential locations. Populate lat and lon fields with ...lat and lon..
+		//sets variable currentLocation to the current lat and lon pulled from the navigator.geolocation call we make later
 		currentLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-	 var request = {
-			    location: currentLocation,
-			    radius: '10'
-			  };
+		
+	 	var request = 
+	 	{
+			location: currentLocation,	//current location of the user
+			radius: '10'	//10 meter radius from coordinates
+		};
+	
+	 
+		 //not sure why the following line of code throws an error.
+		//locationDiv = document.$("select[name=location]");
+	 
+		locationDiv = document.getElementById("places-div");	//sets a div for the placesService
+		service = new google.maps.places.PlacesService(locationDiv);	//assigns PlacesService to variable service
+		service.search(request, callback);	//calls the search method
 	
 	
-	locationDiv = document.getElementById("places-div");
-	service = new google.maps.places.PlacesService(locationDiv);
-	service.search(request, callback);
-	
-	function callback(results, status)  
-	{
-		  if (status == google.maps.places.PlacesServiceStatus.OK) 
-		  {
+		//function tells us what we should with the results of the search request
+		function callback(results, status)  
+		{
+			if (status == google.maps.places.PlacesServiceStatus.OK) //did the request go through ok?
+		  	{
 			      
-				alert(results.join('\n'));
-				alert(JSON.stringify(results));
+				//alert(JSON.stringify(results)); //if you want to see an alert window of results, uncomment this.
+				
 				var i;
-				for (i in results)
+				for (i in results) //for all the results
 					{
-					$("select[name=location]").val(results[i].name);
+						$("select[name=location]").prepend("<option value='"+results[i].name+"'>"+results[i].name+"</option>"); //for each result, prepend the following to the location select element
 					}
 			   
-		  }
-	}
-		$("input[name=location]");
-		$("input[name=lat]").val(position.coords.latitude);
-		$("input[name=lon]").val(position.coords.longitude);
+				$("select[name=location]").attr("size",results.length+1); 	//set the size of the select box based on list of results - I might put some sort of limit in here...
+				
+				$("select[name=location] option:eq("+results.length+")").text("None Of The Above");	//changes the "no nearby locations text" in the select box to "None of the above"
+				
+		  	}
+		}
+		
+		
+		$("input[name=lat]").val(position.coords.latitude); 	//put lat in the lat input
+		$("input[name=lon]").val(position.coords.longitude);	//put lon in the lon input
 	}
 			
 			
 	
-	//gets gps data from the browser or the cell phone. Uses the getPos function. Enable high accuracy allows certain mobile devices to give more exact coordinates
+	
+	
+	//heres where the magic happens we get gps data from the browser or the cell phone. We use the getPos function. We Enable high accuracy to allow certain mobile devices to give more exact coordinates
 	if (navigator.geolocation)
 	{
-	 	navigator.geolocation.getCurrentPosition(
+	 	navigator.geolocation.getCurrentPosition
+	 	(
 				
-	 		getPos,undefined,
+	 		getPos,undefined,  //getPos is the big function we defined earlier. Undefined is what to do if the call fails.
 			
 			{
 				enableHighAccuracy: true
@@ -73,16 +88,25 @@ $(document).ready(function()
 	
 	}
 	
-	//Credit to chris hope at www.electrictoolbox.com for this script to convert javascript's date() into a database friendly format
+	
+	
+	
+	
+	
+	
+	//Credit to chris hope at www.electrictoolbox.com for the following two functions to convert javascript's date() into a database friendly format
+	//we use this in the following functions when create date objects
 	function pad(number, length) 
 	{
-	   
-    var str = '' + number;
-    while (str.length < length) {
-        str = '0' + str;
-    }
+		
+   		var str = '' + number;
+   		
+    	while (str.length < length) 
+    	{
+        	str = '0' + str;
+    	}
    
-    return str;
+    	return str;
 	}
 
 	
@@ -95,11 +119,14 @@ $(document).ready(function()
 
 	
 	
-	//declaring global variables for following functions
+	
+	
+	
+	//declaring variables for following functions
 	var timeAtStart;
 	var timeAtStop;
 	
-	//jquery for when the start button is pressed multiple times (toggle), the first function controls what happens on the first click, the second function controls the second click, etc, etc.
+	//jquery for when the start button is pressed multiple times (toggle), the first function controls what happens on the first click, the second function controls the second click, the third function responds to the third click.
 	$("div#start-stop-button").toggle
 	(
 	    //first click 
@@ -128,51 +155,83 @@ $(document).ready(function()
 
 	
 });
+
 </script>	
 
-<script type=text/javascript>
-
-</script>
 
 </head>
+
+
+
+
+
 <body>
- <tags:header/> 
-<div id="places-div"></div>
+
+
+<tags:header/> 
+
+
+<div id="places-div"></div> <!-- for the PlacesService -->
+
+
+
+
+
+
 <div id="timer-container">
-<div id="start-stop-button"><button><p>Start</p></button></div><!-- start-stop-button -->
-<!--<form id="timer-form"> -->
-<form:form method="Post" modelAttribute="marker">
-<div id="timer-data">
-<div id="location">Location:
-<select name=location>
-<option value="volvo">Volvo</option>
-<option value="volvo">Volvo</option>
-<option value="volvo">Volvo</option>
-<option value="volvo">Volvo</option>
-</select>
-</div><!-- location -->
 
-<div id="latitude"
-><form:label path="lat"> Latitude: </form:label><form:input path="lat" />
-</div><!-- latitude -->
+	<div id="start-stop-button">
+		<button>
+			<p>Start</p>
+		</button>
+	</div><!-- start-stop-button -->
+	
+	
+	<form:form method="Post" modelAttribute="marker">
+	
+		<div id="timer-data">
 
-<div id="longitude">
-<form:label path="lon"> Longitude: </form:label><form:input path="lon" />
-</div><!-- longitude -->
+			<div id="location">
+				<form:label path="location">Location:</form:label>
+					<form:select path="location" name="location" size="">
+						<option value="none">No nearby locations found!</option>
+					</form:select>
+			</div><!-- location -->
+			
 
-<div id="start-time"> 
-<form:label path="startTime"> Start Time: </form:label><form:input path="startTime" />
-</div><!-- start-time -->
+			<div id="latitude">
+				<form:label path="lat"> Latitude: </form:label>
+				<form:input path="lat" />
+			</div><!-- latitude -->
 
-<div id="stop-time">
-<form:label path="stopTime"> Stop Time: </form:label><form:input path="stopTime" /></div>
-<!-- stop-time -->
-<div id="total-time"><form:label path="totalTime">Total Time Spent (in milliseconds): </form:label><form:input path="totalTime" /></div><!-- total-time -->
-</div><!-- timer-data -->
-<div id="timer-submit-button"><input class=timerSubmit type="submit" value= "Submit"/></div>
-</form:form>
-<!-- </form><!-- timer-form -->
+			<div id="longitude">
+				<form:label path="lon"> Longitude: </form:label>
+				<form:input path="lon" />
+			</div><!-- longitude -->
+
+			<div id="start-time"> 
+				<form:label path="startTime"> Start Time: </form:label>
+				<form:input path="startTime" />
+			</div><!-- start-time -->
+
+			<div id="stop-time">
+				<form:label path="stopTime"> Stop Time: </form:label>
+				<form:input path="stopTime" />
+			</div><!-- stop-time -->
+			
+			<div id="total-time">
+				<form:label path="totalTime">Total Time Spent (in milliseconds): </form:label>
+				<form:input path="totalTime" />
+			</div><!-- total-time -->
+			
+		</div><!-- timer-data -->
+		
+		<div id="timer-submit-button"><input class=timerSubmit type="submit" value= "Submit"/></div>
+		
+	</form:form>
+	
 </div><!-- timer-container -->
+	
 
 </body>
 </html>
