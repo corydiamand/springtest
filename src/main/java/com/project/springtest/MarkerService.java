@@ -33,7 +33,7 @@ public class MarkerService
 	public List<Marker> getAll()
 	{
 		//Sql
-		String sql = "SELECT id,lat,lon FROM locationdata";
+		String sql = "SELECT id,location,lat,lon,totaltime FROM locationdata";
 		
 		//map result to rows
 		RowMapper<Marker> mapper = new RowMapper<Marker>() 
@@ -42,8 +42,10 @@ public class MarkerService
 			{
 				Marker marker = new Marker();
 				marker.setId(rs.getInt("id"));
+				marker.setLocation(rs.getString("location"));
 				marker.setLat(rs.getFloat("lat"));
 				marker.setLon(rs.getFloat("lon"));
+				marker.setTotalTime(rs.getInt("totaltime"));
 					return marker;
 			}
 		}; 
