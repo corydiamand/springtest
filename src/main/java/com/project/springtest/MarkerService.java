@@ -55,6 +55,10 @@ public class MarkerService
 	}
 	
 	
+	
+	//timer.jsp data interface and method
+	
+	
 	//creates an interface for the timer form data
 	public interface dataAccess{
 		void addMarker(String location, float lat, float lon, String startTime, String stopTime, int totalTime);

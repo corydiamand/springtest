@@ -1,7 +1,5 @@
 package com.project.springtest;
 
-import java.util.Date;
-
 public class Marker {
 	
 	private int id;
