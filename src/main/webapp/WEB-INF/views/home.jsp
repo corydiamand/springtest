@@ -56,7 +56,7 @@
             	
            	 var boxText = document.createElement("div");
                boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: lightgreen; padding: 5px;";
-               boxText.innerHTML = "Marker"+<c:out value="${marker.id}"/>+"<br>"+"<c:out value="${marker.location}"/>"+"<br> Time:"+<c:out value="${marker.totalTime}"/>/1000+"seconds";
+               boxText.innerHTML = "Marker"+<c:out value="${marker.id}"/>+"<br>"+"<c:out value="${marker.location}"/>"+"<br> Time:"+<c:out value="${marker.totalTime}"/>/1000+"<br>seconds";
                        
                var myOptions = 
                {
@@ -68,8 +68,8 @@
                        
                        ,boxStyle: 
                        { 
-                       background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.5/examples/tipbox.gif') no-repeat"
-                       ///background: "url('src/main/webapp/images/markerpointer.png') no-repeat"
+                       //background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.5/examples/tipbox.gif') no-repeat"
+                       background: "url('resources/images/pointer.png') no-repeat"
                          	,opacity: 0.75
                          	,width: "80px"
                        }
