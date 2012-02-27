@@ -23,21 +23,16 @@
     			
     			var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         
+    			
+    			/*
+    			//what a marker should look like.
     			var marker = new google.maps.Marker(
     			{
     				map: map, 
     				position: new google.maps.LatLng(40.769069,-73.988335),
     				title:"Hello World!"
     			});
-    			
-    			var marker2 = new google.maps.Marker(
-    			{
-    				map: map, 
-    				position: new google.maps.LatLng(40.769099,-73.988399),
-    				title:"Hello World!"
-        		});
-    		
-        	
+    			*/
         	
    
     			//loop through list<Markers>
